@@ -1,0 +1,21 @@
+/* * {
+    outline: 1px solid red;
+} */
+
+#canvas {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 600px;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+}
+
+.cell {
+    flex: 1;
+}
