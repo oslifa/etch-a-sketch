@@ -7,8 +7,22 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <div id="canvas">
-
-        </div>
+        <div id="canvas"></div>
+        <input id="canvasColor" type="color">
+        <input id="drawColor" type="color">
+        <label>Drawing mode
+            <select id="drawMode" multiple size="3">
+                <option value="draw">Draw</option>
+                <option value="erase">Erase</option>
+                <option value="rainbow">Rainbow</option>
+            </select>
+        </label>
+        <label>Brush size
+            <select id="brushSize" multiple size="2">
+                <option value="small">Small</option>
+                <option value="big">Big</option>
+            </select>
+        </label>
+        <button id="clearCanvas">Clear canvas</button>
     </body>
 </html>
