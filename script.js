@@ -1,33 +1,76 @@
 const canvas = document.querySelector("#canvas");
 
+const MIN_CANVAS_WIDTH = 2;
+const MAX_CANVAS_WIDTH = 100;
+
 function setCanvasWidth(width) {
-    for (let i = 1; i <= width; i++) {
-        let row = document.createElement("div");
-        row.classList.add("row");
-        
-        for (let j = 1; j <= width; j++) {
-            let cell = document.createElement("div");
-            cell.classList.add("cell");
-            cell.id=`_${i}_${j}`;
+    if (width >= MIN_CANVAS_WIDTH && width <= MAX_CANVAS_WIDTH) {
+        canvas.innerHTML = "";
+        canvasWidth = width;
 
-            row.appendChild(cell);
+        let gridStyle = showGridCheckbox.checked ? "1px solid #808080" : "none";
+
+        for (let i = 1; i <= canvasWidth; i++) {
+            let row = document.createElement("div");
+            row.classList.add("row");
+            
+            for (let j = 1; j <= canvasWidth; j++) {
+                let cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.style.outline = gridStyle;
+                cell.id=`_${j}_${i}`;
+
+                row.appendChild(cell);
+            }
+
+            canvas.appendChild(row);
         }
-
-        canvas.appendChild(row);
+    } else {
+        canvasWidthSelector.value = canvasWidth;
     }
 }
+
+const showGridCheckbox = document.querySelector("#showGrid");
+showGridCheckbox.addEventListener("change", () => showGrid(showGridCheckbox.checked));
 
 let canvasWidth = 32;
 setCanvasWidth(canvasWidth);
 
+const canvasWidthSelector = document.querySelector("#canvasWidth");
+canvasWidthSelector.addEventListener("change", () => setCanvasWidth(canvasWidthSelector.value));
+
 const canvasColorPicker = document.querySelector("#canvasColor");
-const drawColorPicker = document.querySelector("#drawColor");
 
 function changeCanvasColor(color) {
+    let colorRed = color[1] + color[2];
+    let colorGreen = color[3] + color[4];
+    let colorBlue = color[5] + color[6];
+
+    let bgRed = (0xff - parseInt(colorRed, 16)).toString(16);
+    let bgBlue = (0xff - parseInt(colorBlue, 16)).toString(16);
+    let bgGreen = (0xff - parseInt(colorGreen, 16)).toString(16);
+
     canvas.style.backgroundColor = color;
+    document.body.style.backgroundColor = `#${bgRed}${bgGreen}${bgBlue}`;
 }
 
-canvasColorPicker.addEventListener("input", (e) => changeCanvasColor(e.target.value));
+changeCanvasColor("#ffffff");
+canvasColorPicker.addEventListener("input", () => changeCanvasColor(canvasColorPicker.value));
+
+function showGrid(isShowGrid) {
+    if (isShowGrid) {
+        document.querySelectorAll(".cell").forEach((cell) => cell.style.outline = "1px solid #808080");
+    } else {
+        document.querySelectorAll(".cell").forEach((cell) => cell.style.outline = "none");
+    }
+}
+
+function clearCanvas() {
+    document.querySelectorAll(".cell").forEach((cell) => cell.style.background = "none");
+}
+
+const clearCanvasBtn = document.querySelector("#clearCanvas");
+clearCanvasBtn.addEventListener("click", clearCanvas);
 
 let drawMode = "draw";
 
@@ -36,16 +79,18 @@ function changeDrawMode(mode) {
 }
 
 const drawModeSelector = document.querySelector("#drawMode");
-drawModeSelector.addEventListener("input", (e) => changeDrawMode(e.target.value))
+drawModeSelector.addEventListener("input", () => changeDrawMode(drawModeSelector.value))
 
-let brushSize = "big";
+const drawColorPicker = document.querySelector("#drawColor");
+
+let brushSize = "small";
 
 function changeBrushSize(size) {
     brushSize = size;
 }
 
 const brushSizeSelector = document.querySelector("#brushSize");
-brushSizeSelector.addEventListener("input", (e) => changeBrushSize(e.target.value))
+brushSizeSelector.addEventListener("input", () => changeBrushSize(brushSizeSelector.value))
 
 function draw(cell) {
     if (brushSize === "small") {
@@ -55,9 +100,9 @@ function draw(cell) {
         let cellYCoord = parseInt(cell.id.split("_")[2]);
 
         for (let i = -1; i <= 1; i++) {
-            if (cellXCoord + i > 0 && cellXCoord <= canvasWidth) {
+            if (cellXCoord + i > 0 && cellXCoord + i <= canvasWidth) {
                 for (let j = -1; j <= 1; j++) {
-                    if (cellYCoord + i > 0 && cellYCoord <= canvasWidth) {
+                    if (cellYCoord + j > 0 && cellYCoord + j <= canvasWidth) {
                         fillCell(document.querySelector(`#_${cellXCoord + i}_${cellYCoord + j}`));
                     }
                 }
@@ -98,12 +143,5 @@ function mouseoverHandler(event) {
 canvas.addEventListener("mousedown", mousedownHandler);
 document.addEventListener("mouseup", mouseupHandler);
 canvas.addEventListener("mouseover", mouseoverHandler);
-
-function clearCanvas() {
-    document.querySelectorAll(".cell").forEach((cell) => cell.style.background = "none");
-}
-
-const clearCanvasBtn = document.querySelector("#clearCanvas");
-clearCanvasBtn.addEventListener("click", clearCanvas);
 
 // VIEW GRID

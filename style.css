@@ -1,14 +1,25 @@
-/* * {
-    outline: 1px solid red;
-} */
+body * {
+    font-family: 'Trebuchet MS';
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#content {
+    display: flex;
+    flex: 0 1 700px;
+    flex-direction: column;
+    gap: 20px;
+}
 
 #canvas {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    width: 600px;
-    height: 600px;
     flex-wrap: wrap;
-    border: 1px solid black;
+    aspect-ratio: 1;
 }
 
 .row {
@@ -18,4 +29,20 @@
 
 .cell {
     flex: 1;
+}
+
+#controls {
+    display: flex;
+    gap: 20px;
+    background-color: #ffffff;
+}
+
+#canvasControls, #drawControls {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+#canvasColor, #drawColor {
+    margin-left: 20px;
 }
