@@ -11,25 +11,28 @@
             <div id="canvas"></div>
             <div id="controls">
                 <div id="canvasControls">
-                    <label for="canvasWidth">Canvas width</label>
-                    <input id="canvasWidth" type="number" placeholder="Enter a value between 2 and 100">
+                    <label>Canvas width
+                        <input id="canvasWidth" type="number" placeholder="Enter a value between 2 and 100">
+                    </label>
                     <label>Canvas colour<input id="canvasColor" type="color"></label>
                     <label>Show grid<input id="showGrid" type="checkbox"></label>
                     <button id="clearCanvas">Clear canvas</button>
                 </div>
                 <div id="drawControls">
-                    <label for="drawMode">Drawing mode</label>
-                    <select id="drawMode" multiple size="3">
-                        <option value="draw" selected>Draw</option>
-                        <option value="erase">Erase</option>
-                        <option value="rainbow">Rainbow</option>
-                    </select>
+                    <label>Drawing mode
+                        <select id="drawMode">
+                            <option value="draw" selected>Draw</option>
+                            <option value="erase">Erase</option>
+                            <option value="rainbow">Rainbow</option>
+                        </select>
+                    </label>
                     <label>Drawing colour<input id="drawColor" type="color"></label>
-                    <label for="brushSize">Brush size</label>
-                    <select id="brushSize" multiple size="2">
-                        <option value="small" selected>Small</option>
-                        <option value="big">Big</option>
-                    </select>
+                    <label>Brush size
+                        <select id="brushSize">
+                            <option value="small" selected>Small</option>
+                            <option value="big">Big</option>
+                        </select>
+                    </label>
                 </div>
             </div>
         </div>

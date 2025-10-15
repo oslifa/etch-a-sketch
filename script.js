@@ -46,12 +46,13 @@ function changeCanvasColor(color) {
     let colorGreen = color[3] + color[4];
     let colorBlue = color[5] + color[6];
 
-    let bgRed = (0xff - parseInt(colorRed, 16)).toString(16);
-    let bgBlue = (0xff - parseInt(colorBlue, 16)).toString(16);
-    let bgGreen = (0xff - parseInt(colorGreen, 16)).toString(16);
+    let bgRed = (0xff - parseInt(colorRed, 16)).toString(16).padStart(2, "0");
+    let bgBlue = (0xff - parseInt(colorBlue, 16)).toString(16).padStart(2, "0");
+    let bgGreen = (0xff - parseInt(colorGreen, 16)).toString(16).padStart(2, "0");
 
     canvas.style.backgroundColor = color;
     document.body.style.backgroundColor = `#${bgRed}${bgGreen}${bgBlue}`;
+    console.log(bgRed, bgGreen, bgBlue);
 }
 
 changeCanvasColor("#ffffff");
