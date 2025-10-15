@@ -144,5 +144,3 @@ function mouseoverHandler(event) {
 canvas.addEventListener("mousedown", mousedownHandler);
 document.addEventListener("mouseup", mouseupHandler);
 canvas.addEventListener("mouseover", mouseoverHandler);
-
-// VIEW GRID
